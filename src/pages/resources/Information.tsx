@@ -33,7 +33,8 @@ const getEmbedUrl = (video: Video): string | null => {
       : null;
   }
   if (source === 'facebook') {
-    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&autoplay=true&allowfullscreen=true`;
+    // Handles both /videos/ and /reel/ URLs
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&autoplay=true&allowfullscreen=true&width=auto`;
   }
   if (source === 'tiktok') {
     const match = url.match(/video\/(\d+)/);
@@ -67,19 +68,11 @@ const getThumbnail = (video: Video): string => {
 const videos: Video[] = [
   {
     id: 'v1',
-    title: 'Medicare 101: What You Need to Know Before You Enroll',
+    title: 'Service To Security',
     category: 'Medicare',
-    date: 'June 2026',
-    source: 'youtube',
-    url: 'https://www.youtube.com/watch?v=DpTTiWqfDus',
-  },
-  {
-    id: 'v2',
-    title: 'Social Security: When Should You Start Taking Benefits?',
-    category: 'Retirement',
-    date: 'May 2026',
-    source: 'youtube',
-    url: 'https://www.youtube.com/watch?v=eoKDJSAMSV0',
+    date: 'July 2026',
+    source: 'facebook',
+    url: 'https://www.facebook.com/reel/1087581636936821',
   },
 ];
 

@@ -68,11 +68,251 @@ const getThumbnail = (video: Video): string => {
 const videos: Video[] = [
   {
     id: 'v1',
-    title: 'Service To Security',
+    title: 'Service To Security — Reel 1',
     category: 'Medicare',
-    date: 'July 2026',
-    source: 'facebook',
+    date: '2026',
+    source: 'facebook' as VideoSource,
     url: 'https://www.facebook.com/reel/1087581636936821',
+  },
+  {
+    id: 'v2',
+    title: 'Service To Security — Reel 2',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2101929137412531',
+  },
+  {
+    id: 'v3',
+    title: 'Service To Security — Reel 3',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2327141148103136',
+  },
+  {
+    id: 'v4',
+    title: 'Service To Security — Reel 4',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1432609488694655',
+  },
+  {
+    id: 'v5',
+    title: 'Service To Security — Reel 5',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1573751707796380',
+  },
+  {
+    id: 'v6',
+    title: 'Service To Security — Reel 6',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1577606340518101',
+  },
+  {
+    id: 'v7',
+    title: 'Service To Security — Reel 7',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1319655473704175',
+  },
+  {
+    id: 'v8',
+    title: 'Service To Security — Reel 8',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1724864018519890',
+  },
+  {
+    id: 'v9',
+    title: 'Service To Security — Reel 9',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2174020686751754',
+  },
+  {
+    id: 'v10',
+    title: 'Service To Security — Reel 10',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1713980076281942',
+  },
+  {
+    id: 'v11',
+    title: 'Service To Security — Reel 11',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1410222157583478',
+  },
+  {
+    id: 'v12',
+    title: 'Service To Security — Reel 12',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2161971344372268',
+  },
+  {
+    id: 'v13',
+    title: 'Service To Security — Reel 13',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1699897147806829',
+  },
+  {
+    id: 'v14',
+    title: 'Service To Security — Reel 14',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/828927870155060',
+  },
+  {
+    id: 'v15',
+    title: 'Service To Security — Reel 15',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/960931580099454',
+  },
+  {
+    id: 'v16',
+    title: 'Service To Security — Reel 16',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/970875449072424',
+  },
+  {
+    id: 'v17',
+    title: 'Service To Security — Reel 17',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1886876768666904',
+  },
+  {
+    id: 'v18',
+    title: 'Service To Security — Reel 18',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1762753725105944',
+  },
+  {
+    id: 'v19',
+    title: 'Service To Security — Reel 19',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1725628415280754',
+  },
+  {
+    id: 'v20',
+    title: 'Service To Security — Reel 20',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/26359487676979882',
+  },
+  {
+    id: 'v21',
+    title: 'Service To Security — Reel 21',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/886556317384957',
+  },
+  {
+    id: 'v22',
+    title: 'Service To Security — Reel 22',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2352921108472738',
+  },
+  {
+    id: 'v23',
+    title: 'Service To Security — Reel 23',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/3796929243939372',
+  },
+  {
+    id: 'v24',
+    title: 'Service To Security — Reel 24',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1171356568195118',
+  },
+  {
+    id: 'v25',
+    title: 'Service To Security — Reel 25',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/31739502295664941',
+  },
+  {
+    id: 'v26',
+    title: 'Service To Security — Reel 26',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1155869753119156',
+  },
+  {
+    id: 'v27',
+    title: 'Service To Security — Reel 27',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/24391053333870970',
+  },
+  {
+    id: 'v28',
+    title: 'Service To Security — Reel 28',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1332034905115774',
+  },
+  {
+    id: 'v29',
+    title: 'Service To Security — Reel 29',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/582710521594020',
+  },
+  {
+    id: 'v30',
+    title: 'Service To Security — Reel 30',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1296703368529103',
+  },
+  {
+    id: 'v31',
+    title: 'Service To Security — Reel 31',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/783681920912018',
   },
 ];
 
@@ -99,12 +339,12 @@ const Modal = ({ video, onClose }: { video: Video; onClose: () => void }) => {
       style={{ backgroundColor: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(6px)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative w-full max-w-5xl mx-4">
+      <div className="relative w-full max-w-3xl mx-4">
         {/* Header row */}
         <div className="flex items-start justify-between mb-3 px-1">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-red-400">{video.category} · {video.date}</span>
-            <h2 className="text-white font-bold text-lg leading-snug mt-0.5 max-w-2xl">{video.title}</h2>
+            <h2 className="text-white font-bold text-base leading-snug mt-0.5 max-w-xl">{video.title}</h2>
           </div>
           <button
             onClick={onClose}
@@ -115,10 +355,10 @@ const Modal = ({ video, onClose }: { video: Video; onClose: () => void }) => {
           </button>
         </div>
 
-        {/* Player */}
+        {/* Player — capped at 70vh so it never overflows the screen */}
         <div
           className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-black"
-          style={{ paddingTop: '56.25%' }}
+          style={{ height: 'min(56.25vw, 70vh)' }}
         >
           <div className="absolute inset-0">
             {video.source === 'direct' && embedUrl ? (

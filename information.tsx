@@ -33,7 +33,8 @@ const getEmbedUrl = (video: Video): string | null => {
       : null;
   }
   if (source === 'facebook') {
-    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&autoplay=true&allowfullscreen=true`;
+    // Handles both /videos/ and /reel/ URLs
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&autoplay=true&allowfullscreen=true&width=auto`;
   }
   if (source === 'tiktok') {
     const match = url.match(/video\/(\d+)/);
@@ -67,19 +68,243 @@ const getThumbnail = (video: Video): string => {
 const videos: Video[] = [
   {
     id: 'v1',
-    title: 'Medicare 101: What You Need to Know Before You Enroll',
-    category: 'Medicare',
-    date: 'June 2026',
-    source: 'youtube',
-    url: 'https://www.youtube.com/watch?v=DpTTiWqfDus',
+    title: '"What If" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1087581636936821',
   },
   {
     id: 'v2',
-    title: 'Social Security: When Should You Start Taking Benefits?',
+    title: 'Is Your Estate Plan A Time Bomb!? | Monday Monday w/ Mike Thomas',
     category: 'Retirement',
-    date: 'May 2026',
-    source: 'youtube',
-    url: 'https://www.youtube.com/watch?v=eoKDJSAMSV0',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2101929137412531',
+  },
+  {
+    id: 'v3',
+    title: 'The Retirement Income Gap | "What If" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2327141148103136',
+  },
+  {
+    id: 'v4',
+    title: 'What if your plan was built backwards | Money Monday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1432609488694655',
+  },
+  {
+    id: 'v5',
+    title: 'The Safety Test | "What If" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1573751707796380',
+  },
+  {
+    id: 'v6',
+    title: 'Long Term Care! | Money Monday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1577606340518101',
+  },
+  {
+    id: 'v7',
+    title: 'Know Your Number! | Money Monday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1319655473704175',
+  },
+  {
+    id: 'v8',
+    title: '10 Minute Beneficiary Check Up!!! | "What if" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1724864018519890',
+  },
+  {
+    id: 'v9',
+    title: 'MEDICARE!! | "Money Monday" w/ Mike Thomas',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2174020686751754',
+  },
+  {
+    id: 'v10',
+    title: 'Cost of Doing Nothing! | "What If" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1713980076281942',
+  },
+  {
+    id: 'v11',
+    title: 'Loyalty Over Luck! | "Money Monday" w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1410222157583478',
+  },
+  {
+    id: 'v12',
+    title: '3 Account Check Up! | "What If" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2161971344372268',
+  },
+  {
+    id: 'v13',
+    title: 'The Value of Options! | "Money Monday" w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1699897147806829',
+  },
+  {
+    id: 'v14',
+    title: '"Your Money Has A Job!" | "What If" Wednesday w/ Mike Thomas',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/828927870155060',
+  },
+  {
+    id: 'v15',
+    title: 'Life Insurance! | Annuity Awareness Month!',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/960931580099454',
+  },
+  {
+    id: 'v16',
+    title: '"What If" Wednesday w/ Mike Thomas - Farm/Business Succession',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/970875449072424',
+  },
+  {
+    id: 'v17',
+    title: '"What If" Wednesday w/ Mike Thomas - Annual Reviews',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1886876768666904',
+  },
+  {
+    id: 'v18',
+    title: '"What If" Wednesday w/ Mike Thomas - WAITING',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1762753725105944',
+  },
+  {
+    id: 'v19',
+    title: '"What If" Wednesday w/ Mike Thomas - Protecting Families, Not Chasing Sales',
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1725628415280754',
+  },
+  {
+    id: 'v20',
+    title: "The UN's of Life Insurance: What Families Deserve to Know!",
+    category: 'Retirement',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/26359487676979882',
+  },
+  {
+    id: 'v21',
+    title: 'Medicare Minute w/ Mike — Just Over 2 Days Left of Annual Enrollment Period!',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/886556317384957',
+  },
+  {
+    id: 'v22',
+    title: 'AEP is Winding Down… 7 Days Left in Annual Enrollment Period',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/2352921108472738',
+  },
+  {
+    id: 'v23',
+    title: 'Medicare Minute w/ Mike - 3 BIG Things Happening Over the Next Few Weeks!',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/3796929243939372',
+  },
+  {
+    id: 'v24',
+    title: 'Medicare Minute w/ Mike - Will Widespread SARs Affect Your Medicare Plan?',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1171356568195118',
+  },
+  {
+    id: 'v25',
+    title: 'Medicare Minute w/ Mike - Annual Enrollment Period is Right Around the Corner!',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/31739502295664941',
+  },
+  {
+    id: 'v26',
+    title: 'Medicare Minute w/ Mike - Your Future My Mission',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1155869753119156',
+  },
+  {
+    id: 'v27',
+    title: 'Medicare Minute w/ Mike - VETERANS This One is For You!',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/24391053333870970',
+  },
+  {
+    id: 'v28',
+    title: 'Medicare Minute w/ Mike Thomas - Have You Reviewed Your ANOC?',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1332034905115774',
+  },
+  {
+    id: 'v29',
+    title: 'Medicare Minute w/ Mike - What is Medicare',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/582710521594020',
+  },
+  {
+    id: 'v30',
+    title: 'Medicare Minute w/ Mike – Special Intro Edition',
+    category: 'Medicare',
+    date: '2026',
+    source: 'facebook' as VideoSource,
+    url: 'https://www.facebook.com/reel/1296703368529103',
   },
 ];
 
@@ -106,12 +331,12 @@ const Modal = ({ video, onClose }: { video: Video; onClose: () => void }) => {
       style={{ backgroundColor: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(6px)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative w-full max-w-5xl mx-4">
+      <div className="relative w-full max-w-3xl mx-4">
         {/* Header row */}
         <div className="flex items-start justify-between mb-3 px-1">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-red-400">{video.category} · {video.date}</span>
-            <h2 className="text-white font-bold text-lg leading-snug mt-0.5 max-w-2xl">{video.title}</h2>
+            <h2 className="text-white font-bold text-base leading-snug mt-0.5 max-w-xl">{video.title}</h2>
           </div>
           <button
             onClick={onClose}
@@ -122,10 +347,10 @@ const Modal = ({ video, onClose }: { video: Video; onClose: () => void }) => {
           </button>
         </div>
 
-        {/* Player */}
+        {/* Player — capped at 70vh so it never overflows the screen */}
         <div
           className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-black"
-          style={{ paddingTop: '56.25%' }}
+          style={{ height: 'min(56.25vw, 70vh)' }}
         >
           <div className="absolute inset-0">
             {video.source === 'direct' && embedUrl ? (

@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
 import HeroSection from '@/components/HeroSection';
-import { X, Play } from 'lucide-react';
+import { X, Volume2, Maximize } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -13,22 +13,16 @@ interface Video {
   category: string;
   date: string;
   source: VideoSource;
-  // For YouTube: full watch URL or embed URL
-  // For Facebook: full post/video URL
-  // For TikTok: full video URL
-  // For Instagram: full reel/post URL
-  // For direct: URL to an .mp4 or other video file
   url: string;
-  thumbnail?: string; // optional override thumbnail image URL
+  thumbnail?: string;
 }
 
-// ─── Helper: build embed URL from source ─────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const getEmbedUrl = (video: Video): string | null => {
   const { source, url } = video;
 
   if (source === 'youtube') {
-    // Accept both watch?v=ID and youtu.be/ID and embed URLs
     const match =
       url.match(/[?&]v=([^&]+)/) ||
       url.match(/youtu\.be\/([^?&]+)/) ||
@@ -38,53 +32,37 @@ const getEmbedUrl = (video: Video): string | null => {
       ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`
       : null;
   }
-
   if (source === 'facebook') {
-    // Facebook embed via their plugin — requires a public video URL
     return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&autoplay=true&allowfullscreen=true`;
   }
-
   if (source === 'tiktok') {
-    // TikTok embed — extract video ID from URL like tiktok.com/@user/video/ID
     const match = url.match(/video\/(\d+)/);
     const id = match?.[1];
     return id ? `https://www.tiktok.com/embed/v2/${id}` : null;
   }
-
   if (source === 'instagram') {
-    // Instagram embed — strip trailing slash, add /embed/
-    const clean = url.replace(/\/$/, '');
-    return `${clean}/embed/`;
+    return `${url.replace(/\/$/, '')}/embed/`;
   }
-
   if (source === 'direct') {
-    // Direct video file — handled separately with <video> tag
     return url;
   }
-
   return null;
 };
 
-const getThumbnailUrl = (video: Video): string => {
+const getThumbnail = (video: Video): string => {
   if (video.thumbnail) return video.thumbnail;
-
   if (video.source === 'youtube') {
     const match =
       video.url.match(/[?&]v=([^&]+)/) ||
       video.url.match(/youtu\.be\/([^?&]+)/) ||
       video.url.match(/embed\/([^?&]+)/);
     const id = match?.[1];
-    return id
-      ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg`
-      : 'https://placehold.co/640x360/1e3a5f/ffffff?text=Video';
+    if (id) return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
   }
-
-  return 'https://placehold.co/640x360/1e3a5f/ffffff?text=Video';
+  return '';
 };
 
 // ─── Videos ───────────────────────────────────────────────────────────────────
-// To add a video, add an entry here. Set source to the platform and url to the
-// full public URL of the video. For direct video files, use source: 'direct'.
 
 const videos: Video[] = [
   {
@@ -107,46 +85,11 @@ const videos: Video[] = [
 
 const categories = ['All', 'Medicare', 'Retirement'];
 
-// ─── Video Player (inside modal) ──────────────────────────────────────────────
+// ─── Modal Player ─────────────────────────────────────────────────────────────
 
-const VideoPlayer = ({ video }: { video: Video }) => {
+const Modal = ({ video, onClose }: { video: Video; onClose: () => void }) => {
   const embedUrl = getEmbedUrl(video);
 
-  if (video.source === 'direct' && embedUrl) {
-    return (
-      <video
-        src={embedUrl}
-        controls
-        autoPlay
-        className="w-full h-full"
-        style={{ background: '#000' }}
-      />
-    );
-  }
-
-  if (!embedUrl) {
-    return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-900 text-white text-sm">
-        Unable to embed this video. <a href={video.url} target="_blank" rel="noreferrer" className="ml-2 underline text-blue-300">Open directly →</a>
-      </div>
-    );
-  }
-
-  return (
-    <iframe
-      src={embedUrl}
-      className="w-full h-full"
-      style={{ border: 'none' }}
-      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-      allowFullScreen
-      title={video.title}
-    />
-  );
-};
-
-// ─── Modal ────────────────────────────────────────────────────────────────────
-
-const VideoModal = ({ video, onClose }: { video: Video; onClose: () => void }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -159,95 +102,168 @@ const VideoModal = ({ video, onClose }: { video: Video; onClose: () => void }) =
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(4px)' }}
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ backgroundColor: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(6px)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative w-full max-w-4xl">
-        {/* Close */}
-        <button
-          onClick={onClose}
-          className="absolute -top-10 right-0 text-white/70 hover:text-white flex items-center gap-1.5 text-sm transition"
-          aria-label="Close"
-        >
-          <X className="w-4 h-4" /> Close
-        </button>
-
-        {/* Title */}
-        <div className="mb-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-red-400">{video.category}</span>
-          <h2 className="text-white font-bold text-lg leading-snug mt-0.5">{video.title}</h2>
+      <div className="relative w-full max-w-5xl mx-4">
+        {/* Header row */}
+        <div className="flex items-start justify-between mb-3 px-1">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-widest text-red-400">{video.category} · {video.date}</span>
+            <h2 className="text-white font-bold text-lg leading-snug mt-0.5 max-w-2xl">{video.title}</h2>
+          </div>
+          <button
+            onClick={onClose}
+            className="ml-4 mt-1 flex-shrink-0 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+            aria-label="Close"
+          >
+            <X className="w-4 h-4 text-white" />
+          </button>
         </div>
 
         {/* Player */}
-        <div className="relative w-full rounded-xl overflow-hidden bg-black shadow-2xl" style={{ paddingTop: '56.25%' }}>
+        <div
+          className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-black"
+          style={{ paddingTop: '56.25%' }}
+        >
           <div className="absolute inset-0">
-            <VideoPlayer video={video} />
+            {video.source === 'direct' && embedUrl ? (
+              <video
+                src={embedUrl}
+                controls
+                autoPlay
+                className="w-full h-full"
+              />
+            ) : embedUrl ? (
+              <iframe
+                src={embedUrl}
+                className="w-full h-full"
+                style={{ border: 'none' }}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                title={video.title}
+              />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center text-white/60 gap-3">
+                <p className="text-sm">Can't embed this video directly.</p>
+                <a
+                  href={video.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-400 hover:text-blue-300 underline text-sm"
+                >
+                  Watch on original platform →
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Meta */}
-        <p className="mt-3 text-white/40 text-xs">{video.date}</p>
+        {/* Footer hint */}
+        <p className="mt-3 text-center text-white/25 text-xs">Press Esc or click outside to close</p>
       </div>
     </div>
   );
 };
 
-// ─── Video Card ───────────────────────────────────────────────────────────────
+// ─── Gallery Tile ─────────────────────────────────────────────────────────────
 
-const VideoCard = ({ video, onClick }: { video: Video; onClick: () => void }) => {
-  const [imgError, setImgError] = useState(false);
-  const thumbnail = getThumbnailUrl(video);
+const GalleryTile = ({ video, onClick }: { video: Video; onClick: () => void }) => {
+  const [hovered, setHovered] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
+  const thumb = getThumbnail(video);
 
   return (
     <button
       onClick={onClick}
-      className="group relative w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl overflow-hidden"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative w-full focus:outline-none group"
+      style={{ paddingTop: '56.25%' }}
+      aria-label={`Play: ${video.title}`}
     >
-      {/* Thumbnail */}
-      <div className="relative w-full bg-gray-900" style={{ paddingTop: '56.25%' }}>
-        {!imgError ? (
+      {/* Thumbnail / background */}
+      <div className="absolute inset-0 overflow-hidden rounded-none">
+        {thumb && !imgFailed ? (
           <img
-            src={thumbnail}
-            alt={video.title}
-            onError={() => setImgError(true)}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            src={thumb}
+            alt=""
+            onError={() => setImgFailed(true)}
+            className="w-full h-full object-cover transition-transform duration-500"
+            style={{ transform: hovered ? 'scale(1.06)' : 'scale(1)' }}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-red-900 flex items-center justify-center">
-            <Play className="w-10 h-10 text-white/30" />
-          </div>
+          <div
+            className="w-full h-full transition-all duration-500"
+            style={{
+              background: hovered
+                ? 'linear-gradient(135deg, #1e3a6e 0%, #7f1d1d 100%)'
+                : 'linear-gradient(135deg, #1e2d4a 0%, #4a1515 100%)',
+            }}
+          />
         )}
 
-        {/* Dark overlay on hover */}
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-200" />
+        {/* Overlay gradient — always present, intensifies on hover */}
+        <div
+          className="absolute inset-0 transition-opacity duration-300"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.0) 100%)',
+            opacity: hovered ? 1 : 0.7,
+          }}
+        />
 
-        {/* Play button */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-200 shadow-lg">
-            <Play className="w-6 h-6 text-white fill-white ml-0.5" />
-          </div>
-        </div>
-
-        {/* Category badge */}
-        <div className="absolute top-3 left-3">
-          <span className="text-xs font-bold uppercase tracking-wider bg-red-500 text-white px-2 py-0.5 rounded-md">
+        {/* Category pill */}
+        <div className="absolute top-3 left-3 z-10">
+          <span
+            className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full transition-all duration-300"
+            style={{
+              background: hovered ? '#ef4444' : 'rgba(239,68,68,0.8)',
+              color: '#fff',
+              backdropFilter: 'blur(4px)',
+            }}
+          >
             {video.category}
           </span>
         </div>
 
-        {/* Source badge */}
-        <div className="absolute top-3 right-3">
-          <span className="text-xs font-semibold uppercase tracking-wider bg-black/50 backdrop-blur-sm text-white/80 px-2 py-0.5 rounded-md">
-            {video.source}
-          </span>
+        {/* Play ring */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div
+            className="flex items-center justify-center rounded-full border-2 border-white transition-all duration-300"
+            style={{
+              width: hovered ? 64 : 52,
+              height: hovered ? 64 : 52,
+              background: hovered ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.12)',
+              backdropFilter: 'blur(4px)',
+              boxShadow: hovered ? '0 0 32px rgba(255,255,255,0.2)' : 'none',
+            }}
+          >
+            {/* Triangle */}
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                borderTop: '10px solid transparent',
+                borderBottom: '10px solid transparent',
+                borderLeft: hovered ? '18px solid white' : '16px solid rgba(255,255,255,0.85)',
+                marginLeft: 3,
+                transition: 'all 0.3s',
+              }}
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Info strip */}
-      <div className="bg-white border border-t-0 border-gray-200 px-4 py-3 rounded-b-xl group-hover:bg-blue-50 transition-colors duration-200">
-        <p className="text-xs text-gray-400 mb-0.5">{video.date}</p>
-        <h3 className="text-sm font-bold text-blue-800 leading-snug line-clamp-2">{video.title}</h3>
+        {/* Title + date at bottom */}
+        <div
+          className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-4 pt-8 transition-transform duration-300"
+          style={{ transform: hovered ? 'translateY(0)' : 'translateY(4px)' }}
+        >
+          <p className="text-white/50 text-xs mb-1">{video.date}</p>
+          <h3 className="text-white font-semibold text-sm leading-snug line-clamp-2 text-left">
+            {video.title}
+          </h3>
+        </div>
       </div>
     </button>
   );
@@ -267,21 +283,21 @@ const Information = () => {
     <PageLayout>
       <HeroSection
         title="INFORMATION"
-        subtitle="Watch our latest videos on Medicare and retirement planning — straight from us to you."
+        subtitle="Watch our latest videos on Medicare and retirement planning."
       />
 
-      <section className="py-14 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-7xl">
 
           {/* Category filter */}
-          <div className="flex gap-3 mb-10 justify-center flex-wrap">
+          <div className="flex gap-3 mb-8 justify-center flex-wrap">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full font-semibold text-sm transition ${
+                className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-200 ${
                   activeCategory === cat
-                    ? 'bg-red-500 text-white shadow-md'
+                    ? 'bg-red-500 text-white shadow-md scale-105'
                     : 'bg-gray-100 text-gray-700 hover:bg-red-50 hover:text-red-600'
                 }`}
               >
@@ -290,13 +306,18 @@ const Information = () => {
             ))}
           </div>
 
-          {/* Grid */}
+          {/* Gallery grid — no cards, no borders, just raw tiles edge to edge */}
           {filtered.length === 0 ? (
-            <p className="text-center text-gray-400 py-20">No videos in this category yet.</p>
+            <p className="text-center text-gray-400 py-24 text-sm">No videos in this category yet.</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              className="grid gap-1"
+              style={{
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              }}
+            >
               {filtered.map((video) => (
-                <VideoCard
+                <GalleryTile
                   key={video.id}
                   video={video}
                   onClick={() => setActiveVideo(video)}
@@ -308,7 +329,7 @@ const Information = () => {
       </section>
 
       {activeVideo && (
-        <VideoModal video={activeVideo} onClose={() => setActiveVideo(null)} />
+        <Modal video={activeVideo} onClose={() => setActiveVideo(null)} />
       )}
     </PageLayout>
   );

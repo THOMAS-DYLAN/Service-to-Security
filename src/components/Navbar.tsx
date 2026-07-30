@@ -1,5 +1,6 @@
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,14 +59,14 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-              <a to="/" className="text-2xl font-bold text-white">
+              <Link to="/" className="text-2xl font-bold text-white">
                 <img
                   src="https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100009141/3339.jpg"
                   alt="Service To Security"
                   className="h-16 w-auto"
                   crossOrigin="anonymous"
                 />
-              </a>
+              </Link>
             </div>
 
           {/* Desktop Navigation */}
@@ -87,13 +88,13 @@ const Navbar = () => {
               {openDesktopDropdown === "about" && (
                 <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                   {navigationMenu.about.map((item) => (
-                    <a
+                    <Link
                       key={item.path}
-                      href={item.path}
+                      to={item.path}
                       className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -116,13 +117,13 @@ const Navbar = () => {
               {openDesktopDropdown === "medicare" && (
                 <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                   {navigationMenu.medicare.map((item) => (
-                    <a
+                    <Link
                       key={item.path}
-                      href={item.path}
+                      to={item.path}
                       className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -145,13 +146,13 @@ const Navbar = () => {
               {openDesktopDropdown === "retirement" && (
                 <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                   {navigationMenu.retirement.map((item) => (
-                    <a
+                    <Link
                       key={item.path}
-                      href={item.path}
+                      to={item.path}
                       className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -174,13 +175,13 @@ const Navbar = () => {
               {openDesktopDropdown === "resources" && (
                 <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                   {navigationMenu.resources.map((item) => (
-                    <a
+                    <Link
                       key={item.path}
-                      href={item.path}
+                      to={item.path}
                       className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -203,13 +204,13 @@ const Navbar = () => {
               {openDesktopDropdown === "contact" && (
                 <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                   {navigationMenu.contact.map((item) => (
-                    <a
+                    <Link
                       key={item.path}
-                      href={item.path}
+                      to={item.path}
                       className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -257,9 +258,9 @@ const Navbar = () => {
                 {openMobileDropdown === "about" && (
                   <div className="mt-2 space-y-1 pl-4">
                     {navigationMenu.about.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         onClick={closeMobileMenu}
                         className="block py-1 text-sm text-blue-100 transition hover:text-white"
                       >
@@ -288,9 +289,9 @@ const Navbar = () => {
                 {openMobileDropdown === "medicare" && (
                   <div className="mt-2 space-y-1 pl-4">
                     {navigationMenu.medicare.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         onClick={closeMobileMenu}
                         className="block py-1 text-sm text-blue-100 transition hover:text-white"
                       >
@@ -319,9 +320,9 @@ const Navbar = () => {
                 {openMobileDropdown === "retirement" && (
                   <div className="mt-2 space-y-1 pl-4">
                     {navigationMenu.retirement.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         onClick={closeMobileMenu}
                         className="block py-1 text-sm text-blue-100 transition hover:text-white"
                       >
@@ -350,9 +351,9 @@ const Navbar = () => {
                 {openMobileDropdown === "resources" && (
                   <div className="mt-2 space-y-1 pl-4">
                     {navigationMenu.resources.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         onClick={closeMobileMenu}
                         className="block py-1 text-sm text-blue-100 transition hover:text-white"
                       >
@@ -381,9 +382,9 @@ const Navbar = () => {
                 {openMobileDropdown === "contact" && (
                   <div className="mt-2 space-y-1 pl-4">
                     {navigationMenu.contact.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         onClick={closeMobileMenu}
                         className="block py-1 text-sm text-blue-100 transition hover:text-white"
                       >

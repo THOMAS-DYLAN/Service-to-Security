@@ -17,6 +17,7 @@ import {
 
 import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Link } from "react-router-dom";
 
 
 const Index = () => {
@@ -103,9 +104,9 @@ const Index = () => {
                 {openDropdown === "about" && (
                   <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                     {navigationMenu.about.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         {item.name}
@@ -131,9 +132,9 @@ const Index = () => {
                 {openDropdown === "medicare" && (
                   <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                     {navigationMenu.medicare.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         {item.name}
@@ -159,9 +160,9 @@ const Index = () => {
                 {openDropdown === "retirement" && (
                   <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                     {navigationMenu.retirement.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         {item.name}
@@ -187,9 +188,9 @@ const Index = () => {
                 {openDropdown === "resources" && (
                   <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                     {navigationMenu.resources.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         {item.name}
@@ -215,9 +216,9 @@ const Index = () => {
                 {openDropdown === "contact" && (
                   <div className="absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-xl border border-gray-200 py-2 z-50">
                     {navigationMenu.contact.map((item) => (
-                      <a
+                      <Link
                         key={item.path}
-                        href={item.path}
+                        to={item.path}
                         className="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         {item.name}
@@ -267,9 +268,9 @@ const Index = () => {
                   {openMobileDropdown === "about" && (
                     <div className="mt-2 space-y-1 pl-4">
                       {navigationMenu.about.map((item) => (
-                        <a
+                        <Link
                           key={item.path}
-                          href={item.path}
+                          to={item.path}
                           onClick={closeMobileMenu}
                           className="block py-1 text-sm text-blue-100 transition hover:text-white"
                         >
@@ -297,9 +298,9 @@ const Index = () => {
                   {openMobileDropdown === "medicare" && (
                     <div className="mt-2 space-y-1 pl-4">
                       {navigationMenu.medicare.map((item) => (
-                        <a
+                        <Link
                           key={item.path}
-                          href={item.path}
+                          to={item.path}
                           onClick={closeMobileMenu}
                           className="block py-1 text-sm text-blue-100 transition hover:text-white"
                         >
@@ -327,9 +328,9 @@ const Index = () => {
                   {openMobileDropdown === "retirement" && (
                     <div className="mt-2 space-y-1 pl-4">
                       {navigationMenu.retirement.map((item) => (
-                        <a
+                        <Link
                           key={item.path}
-                          href={item.path}
+                          to={item.path}
                           onClick={closeMobileMenu}
                           className="block py-1 text-sm text-blue-100 transition hover:text-white"
                         >
@@ -357,9 +358,9 @@ const Index = () => {
                   {openMobileDropdown === "resources" && (
                     <div className="mt-2 space-y-1 pl-4">
                       {navigationMenu.resources.map((item) => (
-                        <a
+                        <Link
                           key={item.path}
-                          href={item.path}
+                          to={item.path}
                           onClick={closeMobileMenu}
                           className="block py-1 text-sm text-blue-100 transition hover:text-white"
                         >
@@ -387,9 +388,9 @@ const Index = () => {
                   {openMobileDropdown === "contact" && (
                     <div className="mt-2 space-y-1 pl-4">
                       {navigationMenu.contact.map((item) => (
-                        <a
+                        <Link
                           key={item.path}
-                          href={item.path}
+                          to={item.path}
                           onClick={closeMobileMenu}
                           className="block py-1 text-sm text-blue-100 transition hover:text-white"
                         >
